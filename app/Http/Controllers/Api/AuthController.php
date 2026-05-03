@@ -36,6 +36,9 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid credentials.'], 401);
         }
 
+        // delete old token for security
+        $user->tokens()->delete();
+
         // create token
         $token = $user->createToken('auth_token')->plainTextToken;
 
