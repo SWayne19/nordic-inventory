@@ -10,6 +10,16 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $orders = Order::with('items.product')
+                ->where('user_id', auth()->id())
+                ->latest()
+                ->paginate(10);
+
+        return response()->json($orders);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
