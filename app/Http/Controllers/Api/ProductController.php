@@ -8,17 +8,18 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    // get paginated product list with filter
+    public function index(Request $request)
     {
-        $products = Product::select('id', 'name', 'price', 'stock')->latest()->paginate(10);
+        $query = Product::select('id', 'name', 'price', 'stock');
 
-        if ($products->isEmpty()) {
-            return response()->json([
-                'status' => 'success',
-                'message' => 'No products found.',
-                'data' => []
-            ], 200);
+        if ($request->filled('search')) {
+            $search = $request->string('search')->trim();
+            // case-insensitive using ILIKE for PostgreSQL
+            $query->whereRaw('name ILIKE ?', ["%{$search}%"]);
         }
+
+        $products = $query->latest()->paginate(2);
 
         return response()->json($products);
     }
