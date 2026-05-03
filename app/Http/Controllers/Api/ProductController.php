@@ -15,8 +15,8 @@ class ProductController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->string('search')->trim();
-            // case-insensitive using ILIKE for PostgreSQL
-            $query->whereRaw('name ILIKE ?', ["%{$search}%"]);
+            // case insensitive filter
+            $query->whereRaw('LOWER(name) LIKE LOWER(?)', ["%{$search}%"]);
         }
 
         $products = $query->latest()->paginate(2);
