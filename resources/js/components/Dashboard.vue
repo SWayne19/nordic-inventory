@@ -2,7 +2,6 @@
 <template>
     <div class="min-h-screen bg-gray-50">
         <Navbar />
-        <UserMenu />
 
         <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
             <ToastNotification />
@@ -24,7 +23,6 @@
 import { provide, onMounted, onUnmounted } from 'vue';
 import { useDashboard } from '../composables/useDashboard';
 import Navbar from './Navbar.vue';
-import UserMenu from './UserMenu.vue';
 import ToastNotification from './ToastNotification.vue';
 import ProductList from './ProductList.vue';
 import Cart from './Cart.vue';

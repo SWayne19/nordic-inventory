@@ -29,7 +29,6 @@ export function useDashboard() {
     // State for user and modals
     const user = ref(null);
     const userLoading = ref(false);
-    const showUserMenu = ref(false);
     const showLogoutModal = ref(false);
     const logoutLoading = ref(false);
 
@@ -287,15 +286,6 @@ export function useDashboard() {
         }
     }
 
-    // Close user menu when clicking outside
-    function closeMenuOnClick(event) {
-        const menu = document.getElementById('user-menu');
-        if (!showUserMenu.value) return;
-        if (menu && !menu.contains(event.target)) {
-            showUserMenu.value = false;
-        }
-    }
-
     // Clear all timers when component unmounts
     function cleanup() {
         if (searchDebounce) clearTimeout(searchDebounce);
@@ -307,13 +297,10 @@ export function useDashboard() {
         fetchUser();
         fetchProducts();
         fetchOrders();
-        document.addEventListener('click', closeMenuOnClick);
     }
 
-    // Remove event listeners on unmount
     function teardown() {
         cleanup();
-        document.removeEventListener('click', closeMenuOnClick);
     }
 
     return {
@@ -321,13 +308,13 @@ export function useDashboard() {
         cart, orderLoading,
         toast,
         orders, ordersMeta, ordersLoading, ordersLoadError,
-        user, userLoading, showUserMenu, showLogoutModal, logoutLoading,
+        user, userLoading, showLogoutModal, logoutLoading,
         searchQuery,
         cartItems, cartItemCount, cartTotal, userInitials,
         formatPrice, formatDate, showToast, dismissToast,
         fetchProducts, onSearchInput, clearSearch,
         incrementQty, decrementQty, removeFromCart,
         placeOrder, fetchOrders, fetchUser, handleLogout,
-        closeMenuOnClick, init, teardown,
+        init, teardown,
     };
 }
