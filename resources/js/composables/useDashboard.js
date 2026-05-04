@@ -15,6 +15,7 @@ export function useDashboard() {
 
     // State for cart
     const cart = reactive({});
+    const cartProductCache = reactive({});
     const orderLoading = ref(false);
 
     // State for toast notifications
@@ -44,7 +45,12 @@ export function useDashboard() {
         return Object.entries(cart)
             .filter(([_, qty]) => qty > 0)
             .map(([id, qty]) => {
-                const product = products.value.find(p => p.id == id);
+                let product = products.value.find(p => p.id == id);
+                if (!product) {
+                    product = cartProductCache[id];
+                } else {
+                    cartProductCache[id] = product;
+                }
                 if (!product) return null;
                 return { id: product.id, name: product.name, price: parseFloat(product.price), qty, stock: product.stock };
             })
@@ -98,6 +104,7 @@ export function useDashboard() {
     async function fetchProducts(page = 1) {
         productsLoading.value = true;
         productsLoadError.value = '';
+        products.value = [];
         try {
             let path = `/products?page=${page}`;
             if (searchQuery.value) {
