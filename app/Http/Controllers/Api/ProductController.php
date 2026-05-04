@@ -19,7 +19,7 @@ class ProductController extends Controller
             $query->whereRaw('name ILIKE ?', ["%{$search}%"]);
         }
 
-        $products = $query->latest()->paginate(2);
+        $products = $query->latest()->orderBy('id', 'desc')->paginate(2);
 
         return response()->json($products);
     }
