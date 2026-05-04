@@ -10,7 +10,7 @@ Inventory and order management system built with Laravel 11 and Vue 3.
 | Frontend | Vue 3 (Composition API) + Vue Router |
 | Styling | Tailwind CSS v4 |
 | Auth | Laravel Sanctum (token-based) |
-| Database | SQLite (default, configurable to MySQL/PostgreSQL) |
+| Database | PostgreSQL |
 | Build | Vite |
 
 ## Process Requirements
@@ -38,6 +38,7 @@ Inventory and order management system built with Laravel 11 and Vue 3.
 - PHP 8.2+
 - Composer
 - Node.js 18+ and npm
+- PostgreSQL
 
 ### Installation
 
@@ -56,13 +57,27 @@ Inventory and order management system built with Laravel 11 and Vue 3.
    cp .env.example .env
    ```
 
-4. Generate app key and create the SQLite database
-   ```bash
-   php artisan key:generate
-   touch database/database.sqlite
+4. Configure PostgreSQL in `.env`:
+   ```
+   DB_CONNECTION=pgsql
+   DB_HOST=127.0.0.1
+   DB_PORT=5432
+   DB_DATABASE=nordic_inventory
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
    ```
 
-5. Run migrations
+5. Create the PostgreSQL database
+   ```bash
+   createdb nordic_inventory
+   ```
+
+6. Generate app key
+   ```bash
+   php artisan key:generate
+   ```
+
+7. Run migrations
    ```bash
    php artisan migrate
    ```
