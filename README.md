@@ -117,7 +117,6 @@ Then open `http://localhost:8000` in your browser.
 |--------|----------|------|-------------|
 | POST | `/api/login` | No | Authenticate and receive a token |
 | POST | `/api/logout` | Yes | Revoke the current token |
-| GET | `/api/user` | Yes | Get authenticated user info |
 | GET | `/api/products` | Yes | List products (paginated, supports `?search=`) |
 | GET | `/api/orders` | Yes | List user's orders (paginated) |
 | POST | `/api/orders` | Yes | Create a new order |
