@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\OrderController;
@@ -11,11 +10,6 @@ Route::post('/login', [AuthController::class, 'login']);
 
 // route group with sanctum auth
 Route::middleware('auth:sanctum')->group(function () {
-    // get user
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-
     // product route
     Route::get('/products', [ProductController::class, 'index']);
 
